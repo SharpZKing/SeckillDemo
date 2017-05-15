@@ -5,8 +5,8 @@
 
     <insert id="insertSuccessKilled">
         <!-- 主键冲突，报错 -->
-        insert ignore into success_killed(seckill_id,user_phone)
-        VALUES (#{seckillId},#{userPhone})
+        insert ignore into success_killed(seckill_id,user_phone,state)
+        VALUES (#{seckillId},#{userPhone},0)
     </insert>
 
     <!--根据id查询successkilled并携带秒杀产品对象实体， 可以自由控制sql-->
