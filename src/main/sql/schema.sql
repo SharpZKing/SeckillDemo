@@ -38,5 +38,5 @@ mysql -uroot -p
 
 -- show create table seckill\G 查看创建表的语句
 -- 手写DDL 记录每次上线的DDL修改
--- ALTER TABLE seckill DROP index idx_create_time, add index idx_c_s(start_time,create_time)
+  -- ALTER TABLE seckill DROP index idx_create_time, add index idx_c_s(start_time,create_time)
 

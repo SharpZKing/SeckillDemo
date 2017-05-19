@@ -17,7 +17,6 @@
       WHERE seckill_id = #{seckillId}
     </select>
 
-
     <select id="queryAll" resultType="com.seckill.entity.Seckill">
       SELECT seckill_id,name,number,start_time,end_time,create_time
       FROM seckill
