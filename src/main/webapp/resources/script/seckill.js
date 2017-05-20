@@ -93,7 +93,8 @@ var seckill = {
               killPhoneModal.modal({
                   show: true,
                   backdrop: 'static',//禁止位置关闭
-                  keyboard: false
+                  keyboard: false,
+
               });
               $('#killPhoneBtn').click(function () {
                   var inputPhone = $('#killPhoneKey').val();
@@ -103,7 +104,7 @@ var seckill = {
 
                       window.location.reload();
                   } else {
-                      $('#killPhoneMessage').hide().html('<label class="label label-danger">手机号错误</label>').show();
+                      $('#killPhoneMessage').hide().html('<label class="label label-danger">手机号错误</label>').show(500);
 
                   }
 
@@ -114,12 +115,14 @@ var seckill = {
           var endTime = params['endTime'];
           var seckillId = params['seckillId'];
 
-          $.get(seckill.URL.now(), {}, function () {
+
+          $.get(seckill.URL.now(), {}, function (result) {
+
             if (result && result['success']){
                 var nowTime = result['data'];
                 seckill.countdown(seckillId, nowTime, startTime, endTime);
             }else{
-
+                console.log("result:"+result);
             }
           });
       }

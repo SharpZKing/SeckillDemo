@@ -115,7 +115,7 @@ public class SeckillController {
         return result;
     }
 
-    @RequestMapping(name = "/time/now", method = RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
+    @RequestMapping(value = "/time/now", method = RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
     @ResponseBody //json
     public SeckillResult<Long> time(){
         Date date = new Date();
