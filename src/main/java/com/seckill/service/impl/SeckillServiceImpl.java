@@ -2,6 +2,7 @@ package com.seckill.service.impl;
 
 import com.seckill.dao.SeckillDao;
 import com.seckill.dao.SuccessKilledDao;
+import com.seckill.dao.cache.RedisDao;
 import com.seckill.dto.Exposer;
 import com.seckill.dto.SeckillExecution;
 import com.seckill.entity.Seckill;
@@ -36,6 +37,9 @@ public class SeckillServiceImpl implements SeckillService{
     @Autowired
     private SuccessKilledDao successKilledDao;
 
+    @Autowired
+    private RedisDao redisDao;
+
     private String slat = "gisdlfjalsffk;asfaksdfe23$@#";
 
     public List<Seckill> getSeckillList() {
@@ -48,11 +52,22 @@ public class SeckillServiceImpl implements SeckillService{
     }
 
     public Exposer exportSeckillUrl(long seckillId) {
+        //优化点： 缓存优化 超时的基础上维护一致性
+        /* get from cache */
+        Seckill seckill = redisDao.getSeckill(seckillId);
+        if (seckill == null){
+            seckill = seckillDao.queryById(seckillId);
+            if (seckill == null){
+                return new Exposer(false, seckillId);
+            }else{
+                redisDao.putSeckill(seckill);
+            }
+        }
 
-        Seckill seckill = seckillDao.queryById(seckillId);
+        /*Seckill seckill = seckillDao.queryById(seckillId);
         if(seckill == null){
             return new Exposer(false,seckillId);
-        }
+        }*/
 
         Date startTime = seckill.getStartTime();
         Date endTime = seckill.getEndTime();
